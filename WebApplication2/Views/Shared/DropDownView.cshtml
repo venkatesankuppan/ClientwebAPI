@@ -1,0 +1,48 @@
+﻿@model WebApplication2.Models.Lunch
+
+
+@*@Html.DropDownList("Lunch", new List<SelectListItem> {
+        new SelectListItem { Text ="Meals", Value = "Meals"},
+        new SelectListItem { Text ="Biriyani", Value = "Biriyani"},
+        new SelectListItem { Text ="Dosa", Value = "Dosa"},
+    })*@
+
+<hr />
+
+@Html.DropDownListFor(m => m.Menu, Model.Menu, "Please select")
+
+<span>Item Rate is : <span id="rate"></span></span>
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        
+        $("#Menu").change(function () {
+            var dID = $(this).val();
+            var apiurl = 'http://localhost:91/api/Lunch/Items/GetRate?Id=' + dID;
+            
+            //alert(apiurl);
+            
+            //$.getJSON(apiurl, function (result) { alert("hi"); });
+            if (dID != '') {
+                $.ajax({
+                    type: 'GET',
+                    url: apiurl,
+                    dataType: 'json',
+                    success: function (data, textStatus, xhr) {
+                        //alert(data);
+
+                        $('#rate').text(data.toString());
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Error in ajax call');
+                    }
+
+                });
+            } else { $('#rate').text(''); }
+               
+           
+
+        });
+    });
+</script>

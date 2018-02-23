@@ -1,0 +1,16 @@
+﻿@model WebApplication2.Models.Lunch
+
+@{
+    ViewBag.Title = "Menu1";
+}
+
+
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+
+
+@section section1{
+    @RenderPage("~/Views/Home/Contact.cshtml")    }
+
+@Html.Partial("~/Views/Shared/DropDownView.cshtml")
